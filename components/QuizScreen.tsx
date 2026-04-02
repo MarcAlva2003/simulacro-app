@@ -69,7 +69,7 @@ export default function QuizScreen({
                 className={cn(
                   "w-full text-left px-4 py-3 rounded-lg border text-sm transition-colors",
                   selected === option.value
-                    ? "border-primary bg-primary/10 font-medium"
+                    ? "border-primary bg-primary/10 dark:bg-primary/20 font-medium ring-1 ring-primary"
                     : "border-border hover:bg-muted"
                 )}
               >
