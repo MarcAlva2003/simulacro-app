@@ -6,6 +6,7 @@ import { pickRandom } from "@/lib/quiz"
 import StartScreen from "@/components/StartScreen"
 import QuizScreen from "@/components/QuizScreen"
 import ResultsScreen from "@/components/ResultsScreen"
+import { ImagePreloader } from "@/components/ImagePreloader"
 
 type Step = "start" | "quiz" | "results"
 
@@ -41,18 +42,25 @@ export default function Home() {
     setStep("start")
   }
 
+  const imageUrls = quizQuestions
+    .map((q) => q.image)
+    .filter((img): img is string => !!img)
+
   if (step === "start") {
     return <StartScreen onStart={handleStart} />
   }
 
   if (step === "quiz") {
     return (
-      <QuizScreen
-        question={quizQuestions[currentIndex]}
-        questionNumber={currentIndex + 1}
-        totalQuestions={TOTAL_QUESTIONS}
-        onConfirm={handleConfirm}
-      />
+      <>
+        <ImagePreloader urls={imageUrls} />
+        <QuizScreen
+          question={quizQuestions[currentIndex]}
+          questionNumber={currentIndex + 1}
+          totalQuestions={TOTAL_QUESTIONS}
+          onConfirm={handleConfirm}
+        />
+      </>
     )
   }
 
